@@ -1,0 +1,92 @@
+recipes = {}
+
+def add_recipe(name, ingredients, instructions):
+    recipes[name] = {'ingredients': ingredients, 'instructions': instructions}
+    print("Recipe added successfully!")
+
+def view_recipe(name):
+    if name in recipes:
+        recipe = recipes[name]
+        print(f"Recipe: {name}")
+        print("Ingredients:")
+        for ingredient in recipe['ingredients']:
+            print("- " + ingredient)
+        print("Instructions:")
+        for step, instruction in enumerate(recipe['instructions'], 1):
+            print(f"{step}. {instruction}")
+    else:
+        print("Recipe not found.")
+
+def edit_recipe(name, new_ingredients, new_instructions):
+    if name in recipes:
+        recipes[name]['ingredients'] = new_ingredients
+        recipes[name]['instructions'] = new_instructions
+        print("Recipe edited successfully!")
+    else:
+        print("Recipe not found.")
+
+def delete_recipe(name):
+    if name in recipes:
+        del recipes[name]
+        print("Recipe deleted successfully!")
+    else:
+        print("Recipe not found.")
+
+def view_all_recipes():
+    if recipes:
+        print("All Recipes:")
+        for name in recipes:
+            print("- " + name)
+    else:
+        print("No recipes found.")
+
+def main():
+    while True:
+        print("\nRecipe Maker")
+        print("1. Add Recipe")
+        print("2. View Recipe")
+        print("3. Edit Recipe")
+        print("4. Delete Recipe")
+        print("5. View All Recipes")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            name = input("Enter recipe name: ")
+            ingredients = input("Enter ingredients (comma-separated): ").split(",")
+            instructions = []
+            print("Enter instructions (enter 'done' when finished):")
+            while True:
+                instruction = input()
+                if instruction.lower() == 'done':
+                    break
+                instructions.append(instruction)
+            add_recipe(name, ingredients, instructions)
+        elif choice == "2":
+            name = input("Enter recipe name: ")
+            view_recipe(name)
+        elif choice == "3":
+            name = input("Enter recipe name to edit: ")
+            ingredients = input("Enter new ingredients (comma-separated): ").split(",")
+            instructions = []
+            print("Enter new instructions (enter 'done' when finished):")
+            while True:
+                instruction = input()
+                if instruction.lower() == 'done':
+                    break
+                instructions.append(instruction)
+            edit_recipe(name, ingredients, instructions)
+        elif choice == "4":
+            name = input("Enter recipe name to delete: ")
+            delete_recipe(name)
+        elif choice == "5":
+            view_all_recipes()
+        elif choice == "6":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
